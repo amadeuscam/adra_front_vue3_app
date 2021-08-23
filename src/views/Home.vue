@@ -1,18 +1,38 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <GetBeneficiarios />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import GetBeneficiarios from "@/components/GetBeneficiarios.vue";
+import Header from "@/components/Header.vue";
+
+import { useStore } from "vuex";
+import { onMounted } from "@vue/runtime-core";
 
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
-    HelloWorld
-  }
-}
+    GetBeneficiarios,
+    Header,
+  },
+   setup() {
+    const store = useStore();
+    onMounted(() =>{
+      console.log(store.getters.logginIn);
+      if (store.getters.logginIn) {
+        store.dispatch("get_beneficiarios")
+      }
+
+    } );
+   
+  },
+};
 </script>
+<style>
+.nav-list {
+  padding: 0;
+}
+</style>
